@@ -1,0 +1,8 @@
+Component_ID,UI_Element_Type,Current_Label,Context,Target_Screen
+CTA_01,Button,Click here,Checkout Page,Payment Confirmation
+CTA_02,Button,Submit,Registration Form,Account Setup
+CTA_03,Link,Read more,Product Feature Card,Feature Details
+CTA_04,Button,Proceed to next step,Multi-step Onboarding,Profile Information
+CTA_05,Modal_Button,Dismiss,Error Notification,Alert Dialog
+CTA_06,Button,Execute transaction,Transfer Page,Bank Transfer
+CTA_07,Link,Go,Navigation Menu,Dashboard Overview

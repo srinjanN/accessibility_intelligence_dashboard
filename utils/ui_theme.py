@@ -1,5 +1,5 @@
 """
-Enterprise Plotly Theme Registration for Accessibility Intelligence Dashboard.
+Enterprise Plotly Theme Registration for DashDeck.io.
 Supports dynamic Dark and Light mode switching with prominent contrast ratios.
 """
 
@@ -11,46 +11,46 @@ def register_plotly_theme(theme_mode: str = "Dark") -> None:
     is_light = (theme_mode.lower() == "light")
     template_name = "enterprise_accessibility_light" if is_light else "enterprise_accessibility_dark"
     
-    # 10-Color Prominent Accessible Palette (WCAG AAA compliant contrast)
+    # 10-Color Prominent Accessible Palette (WCAG AAA compliant contrast with High-Contrast Orange)
     if is_light:
         colorway = [
-            "#1D4ED8",  # Deep Blue (5.8:1 on white)
-            "#047857",  # Deep Emerald
-            "#B45309",  # Deep Amber
-            "#4338CA",  # Deep Indigo
-            "#B91C1C",  # Deep Crimson
-            "#6D28D9",  # Deep Violet
-            "#0369A1",  # Deep Sky Blue
-            "#C2410C",  # Deep Orange
+            "#FF6600",  # Vibrant Blaze Orange (Primary)
+            "#52525B",  # Slate Gray (Secondary)
+            "#059669",  # Deep Emerald
+            "#D97706",  # Deep Amber
+            "#DC2626",  # Deep Crimson
+            "#7C3AED",  # Deep Violet
+            "#0284C7",  # Deep Sky Blue
             "#0F766E",  # Deep Teal
-            "#334155"   # Slate Charcoal
+            "#C2410C",  # Rust Orange
+            "#18181B"   # Charcoal Black
         ]
-        font_color = "#090D16"
-        tick_color = "#334155"
+        font_color = "#000000"
+        tick_color = "#52525B"
         grid_color = "rgba(0, 0, 0, 0.08)"
         zeroline_color = "rgba(0, 0, 0, 0.2)"
         hover_bg = "#FFFFFF"
-        hover_border = "#CBD5E1"
-        hover_text = "#090D16"
+        hover_border = "#D4D4D8"
+        hover_text = "#000000"
     else:
         colorway = [
-            "#3B82F6",  # Sharp Blue
+            "#FF7A00",  # Vibrant Orange Glow (Primary)
+            "#A1A1AA",  # Light Gray (Secondary)
             "#10B981",  # Emerald Success
             "#F59E0B",  # Amber Warning
-            "#818CF8",  # Indigo
             "#EF4444",  # Crimson Critical
-            "#A78BFA",  # Violet
+            "#8B5CF6",  # Violet Accent
             "#38BDF8",  # Sky Blue
-            "#FB923C",  # Orange
             "#2DD4BF",  # Teal Accent
-            "#CBD5E1"   # Slate Light
+            "#FB923C",  # Light Orange
+            "#E4E4E7"   # Off-White
         ]
         font_color = "#FFFFFF"
-        tick_color = "#CBD5E1"
+        tick_color = "#A1A1AA"
         grid_color = "rgba(255, 255, 255, 0.12)"
         zeroline_color = "rgba(255, 255, 255, 0.22)"
-        hover_bg = "#0F172A"
-        hover_border = "#334155"
+        hover_bg = "#121212"
+        hover_border = "#27272A"
         hover_text = "#FFFFFF"
     
     enterprise_template = go.layout.Template()

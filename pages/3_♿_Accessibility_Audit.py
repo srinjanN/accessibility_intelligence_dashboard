@@ -6,7 +6,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-from utils.ui_components import inject_custom_css, render_header_banner, render_issue_card
+from utils.ui_components import inject_custom_css, render_header_banner, render_issue_card, ensure_active_analysis
 
 inject_custom_css()
 
@@ -15,7 +15,7 @@ render_header_banner(
     subtitle="Detailed violation detection matrix, highlighted evidence snippets, concrete improvement suggestions, and feature importance rationale."
 )
 
-current_res = st.session_state.get("current_analysis")
+current_res, input_text = ensure_active_analysis()
 if current_res is None:
     st.info("💡 No active document found. Please run an analysis on the **Dashboard** page first!")
     if st.button("👉 Go to Dashboard"):

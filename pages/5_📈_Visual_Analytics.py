@@ -9,7 +9,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import networkx as nx
 
-from utils.ui_components import inject_custom_css, render_header_banner
+from utils.ui_components import inject_custom_css, render_header_banner, ensure_active_analysis
 from utils.nlp_engine import (
     get_sentences, get_tokens, extract_keywords_tfidf,
     build_cooccurrence_graph, extract_topics
@@ -22,8 +22,7 @@ render_header_banner(
     subtitle="Interactive Plotly charts including accessibility gauge, sentence length histogram, word distribution, co-occurrence network, and issue treemaps."
 )
 
-current_res = st.session_state.get("current_analysis")
-input_text = st.session_state.get("input_text", "")
+current_res, input_text = ensure_active_analysis()
 
 if not input_text or current_res is None:
     st.info("💡 No active document found. Please run an analysis on the **Dashboard** page first!")
@@ -33,29 +32,38 @@ if not input_text or current_res is None:
 
 # 1. Gauge Chart for Accessibility & Readability
 st.markdown("### ⏱️ **Accessibility Speedometer Gauge**")
-score = current_res["accessibility_score"]
+score = float(current_res.get("accessibility_score", 0.0))
+
+bar_color = "#FF7A00" if score < 60 else ("#10B981" if score >= 80 else "#F59E0B")
 
 fig_gauge = go.Figure(go.Indicator(
-    mode="gauge+number+delta",
+    mode="gauge+number",
     value=score,
-    title={'text': "Accessibility Score (0-100)", 'font': {'size': 20, 'color': "#f8fafc"}},
+    number={'suffix': " / 100", 'font': {'size': 38, 'color': "#FFFFFF"}},
+    title={'text': f"Accessibility Score: {st.session_state.get('doc_name', 'Document')}", 'font': {'size': 18, 'color': "#E4E4E7"}},
     gauge={
-        'axis': {'range': [0, 100], 'tickwidth': 1, 'tickcolor': "#94a3b8"},
-        'bar': {'color': "#6366f1"},
-        'bgcolor': "rgba(0,0,0,0)",
+        'axis': {'range': [0, 100], 'tickwidth': 1, 'tickcolor': "#71717A"},
+        'bar': {'color': bar_color, 'thickness': 0.35},
+        'bgcolor': "rgba(255,255,255,0.06)",
         'bordercolor': "rgba(255,255,255,0.2)",
         'steps': [
             {'range': [0, 50], 'color': 'rgba(239, 68, 68, 0.4)'},
             {'range': [50, 75], 'color': 'rgba(234, 179, 8, 0.4)'},
             {'range': [75, 100], 'color': 'rgba(16, 185, 129, 0.4)'}
         ],
+        'threshold': {
+            'line': {'color': "#FF7A00", 'width': 5},
+            'thickness': 0.75,
+            'value': score
+        }
     }
 ))
 fig_gauge.update_layout(
     paper_bgcolor="rgba(0,0,0,0)",
     plot_bgcolor="rgba(0,0,0,0)",
-    font=dict(color="#f8fafc"),
-    height=280
+    font=dict(color="#FFFFFF"),
+    height=290,
+    margin=dict(t=50, b=20, l=30, r=30)
 )
 st.plotly_chart(fig_gauge, use_container_width=True)
 

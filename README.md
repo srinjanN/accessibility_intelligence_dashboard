@@ -1,4 +1,4 @@
-# ♿ AI-Powered Accessibility Intelligence Dashboard (AID)
+# ♿ DashDeck.io — AI-Powered Accessibility & Cognitive Inclusion Intelligence Dashboard
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.40%2B-FF4B4B.svg?logo=streamlit&logoColor=white)](https://streamlit.io/)
@@ -15,9 +15,10 @@ The platform analyzes digital product copy, legal agreements, healthcare guideli
 
 ## 📑 Table of Contents
 
+- [Visual Showcase & Platform Tour](#-visual-showcase--platform-tour)
 - [Executive Overview](#-executive-overview)
 - [Key Features](#-key-features)
-- [Design System & Interface](#-design-system--interface)
+- [Design System & Theme Engine](#-design-system--theme-engine)
 - [System Architecture](#-system-architecture)
 - [Multi-Page Breakdown](#-multi-page-breakdown)
 - [Getting Started](#-getting-started)
@@ -33,11 +34,62 @@ The platform analyzes digital product copy, legal agreements, healthcare guideli
 
 ---
 
+## 📸 Visual Showcase & Platform Tour
+
+### 1. Executive Dashboard & Real-Time KPI Telemetry
+> Instant multi-format ingestion (pasted copy, PDF, DOCX, CSV, Excel, Web URLs) with comprehensive cognitive scoring telemetry, reading grade metrics, and violation counters.
+
+![Executive Dashboard & Real-Time KPI Telemetry](assets/screenshots/dashboard_kpis.png)
+
+---
+
+### 2. Point-by-Point Accessibility Audit & XAI Rationale
+> Violations presented as clean, structured points (`📌 ISSUE`, `🔍 EVIDENCE`, `💡 ACTION`) with algorithmic confidence percentages and Explainable AI (XAI) feature-importance deductions.
+
+![Point-by-Point Accessibility Audit](assets/screenshots/accessibility_audit_points.png)
+
+---
+
+### 3. WCAG 2.2 Standards Mapping & Certification
+> Formal compliance evaluation against WCAG 2.2 (Level A, Level AA, Level AAA), U.S. Section 508, and European EN 301 549 mandates with interactive criteria filters and certification rates.
+
+![WCAG 2.2 Compliance & Standards Mapping](assets/screenshots/wcag_compliance.png)
+
+---
+
+### 4. Interactive Plotly Visual Analytics
+> Real-time visual intelligence including the dynamic accessibility speedometer gauge, sentence length distribution histogram, POS tagging breakdown, and semantic co-occurrence network graph.
+
+![Interactive Visual Analytics](assets/screenshots/visual_analytics.png)
+
+---
+
+### 5. High-Contrast Design & Theme Switching
+> Instant Dark ⇄ Light theme switching engineered for prominent WCAG AAA contrast ratios (>18:1 for core text, >7:1 for interactive controls) with synchronized Plotly charts.
+
+![Light Theme High-Contrast View](assets/screenshots/light_theme_audit.png)
+
+---
+
+### 6. Multi-Format Enterprise Reporting Hub
+> One-click generation and download of executive audit evidence in PDF, editable Word (`.docx`), violation matrix spreadsheet (`.csv`), and developer integration schema (`.json`).
+
+![Multi-Format Enterprise Reporting](assets/screenshots/reports_export.png)
+
+---
+
+### 7. Modular Architecture & Platform Directory
+> Clean landing portal with a responsive Bento Grid layout, active engine telemetry, and direct navigation across the 9 specialized intelligence modules.
+
+![Platform Directory & Modular Architecture](assets/screenshots/landing_overview.png)
+
+---
+
 ## 🎯 Executive Overview
 
 Over 1.3 billion people experience significant disabilities globally. Beyond visual and auditory impairments, **cognitive, neurological, and language accessibility** (dyslexia, ADHD, memory limitations, processing differences, non-native comprehension) represents the largest barrier to understanding modern digital services.
 
-The **Accessibility Intelligence Dashboard** bridges the gap between raw copy and universal digital inclusion:
+**DashDeck.io** bridges the gap between raw copy and universal digital inclusion:
 - **Quantifies Cognitive Burden**: Evaluates sentence architecture, jargon density, and syntactic depth.
 - **Explainable AI (XAI)**: Explains the root causes of score deductions with feature-importance rationale.
 - **Actionable Remediation**: Transforms vague audit outputs into structured, clear points with evidence snippets.
@@ -109,7 +161,7 @@ Rewrites complex copy into accessible alternatives using **Google Gemini 2.5 Fla
 
 ---
 
-## 🎨 Design System & Interface
+## 🎨 Design System & Theme Engine
 
 The dashboard follows modern enterprise design principles (inspired by Linear, Stripe Dashboard, and Vercel):
 
@@ -132,7 +184,15 @@ accessibility_intelligence_dashboard/
 ├── run.bat                     # Windows one-click startup script
 │
 ├── assets/
-│   └── style.css               # Tokenized enterprise CSS (colors, cards, typography)
+│   ├── style.css               # Tokenized enterprise CSS (colors, cards, typography)
+│   └── screenshots/            # High-resolution platform UI demonstrations
+│       ├── dashboard_kpis.png
+│       ├── accessibility_audit_points.png
+│       ├── wcag_compliance.png
+│       ├── visual_analytics.png
+│       ├── light_theme_audit.png
+│       ├── reports_export.png
+│       └── landing_overview.png
 │
 ├── .streamlit/
 │   └── config.toml             # Streamlit server and dark base theme config

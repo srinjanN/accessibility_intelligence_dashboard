@@ -1,5 +1,5 @@
 """
-AI-Powered Accessibility Intelligence Dashboard
+DashDeck.io - AI-Powered Accessibility & Cognitive Inclusion Intelligence Platform
 Main Application Entry Point.
 """
 
@@ -20,13 +20,13 @@ load_dotenv()
 
 # Initialize Page Configuration with clean Material icon mark
 st.set_page_config(
-    page_title="Accessibility Intelligence Dashboard",
+    page_title="DashDeck.io | Accessibility Intelligence",
     page_icon=":material/analytics:",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-from utils.ui_components import inject_custom_css, render_header_banner, render_theme_switcher
+from utils.ui_components import inject_custom_css, render_header_banner, render_theme_switcher, render_sidebar_brand
 from database.db_manager import init_db
 
 # Inject custom styling & enterprise Plotly theme (theme toggle rendered in sidebar below)
@@ -53,17 +53,7 @@ if "custom_thresholds" not in st.session_state:
 
 # Sidebar Info, Prominent Theme Switcher & Navigation Overview
 with st.sidebar:
-    st.markdown("""
-    <div class="sidebar-brand-wrap">
-        <div class="sidebar-logo">
-            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="4" r="2"/><path d="M5 9h14"/><path d="M12 9v12"/><path d="m8 13 4 3 4-3"/>
-            </svg>
-        </div>
-        <div class="sidebar-title">Accessibility Intelligence</div>
-    </div>
-    """, unsafe_allow_html=True)
-    st.caption("v2.5 Production Edition • Multi-Engine NLP & AI")
+    render_sidebar_brand()
     
     # Prominent Dark / Light Mode Switcher
     render_theme_switcher()
@@ -85,7 +75,7 @@ with st.sidebar:
 
 # Main Welcome / Header View
 render_header_banner(
-    title="Accessibility Intelligence Platform",
+    title="DashDeck.io — Accessibility Intelligence Platform",
     subtitle="Evaluate, visualize, and simplify digital copy, documents, and UI text for cognitive accessibility, WCAG standards, and inclusion."
 )
 

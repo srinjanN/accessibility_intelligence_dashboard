@@ -5,7 +5,7 @@ Page 2: Deep Linguistic & NLP Pipeline Breakdown
 import html
 import streamlit as st
 import pandas as pd
-from utils.ui_components import inject_custom_css, render_header_banner
+from utils.ui_components import inject_custom_css, render_header_banner, ensure_active_analysis
 from utils.nlp_engine import (
     get_tokens, get_sentences, extract_named_entities,
     extract_keywords_tfidf, extract_ngrams, extract_topics
@@ -18,8 +18,7 @@ render_header_banner(
     subtitle="Deep tokenisation, POS tagging, Named Entity Recognition (NER), TF-IDF keyword extraction, N-grams, and topic modeling."
 )
 
-current_res = st.session_state.get("current_analysis")
-input_text = st.session_state.get("input_text", "")
+current_res, input_text = ensure_active_analysis()
 
 if not input_text or current_res is None:
     st.info("💡 No active document found. Please run an analysis on the **Dashboard** page first!")

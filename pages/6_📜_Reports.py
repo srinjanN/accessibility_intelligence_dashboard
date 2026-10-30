@@ -3,7 +3,7 @@ Page 6: Multi-Format Downloadable Report Generator
 """
 
 import streamlit as st
-from utils.ui_components import inject_custom_css, render_header_banner
+from utils.ui_components import inject_custom_css, render_header_banner, ensure_active_analysis
 from utils.report_generator import (
     generate_pdf_report, generate_docx_report,
     generate_csv_report, generate_json_report
@@ -16,7 +16,7 @@ render_header_banner(
     subtitle="Generate, preview, and download comprehensive accessibility compliance reports in PDF, DOCX, CSV, and JSON formats."
 )
 
-current_res = st.session_state.get("current_analysis")
+current_res, input_text = ensure_active_analysis()
 doc_name = st.session_state.get("doc_name", "Accessibility Audit")
 
 if current_res is None:

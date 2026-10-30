@@ -127,7 +127,7 @@ st.divider()
 # --- 4. SYSTEM INFORMATION ---
 st.markdown("### **System Information & Compliance Standards**")
 st.json({
-    "Application Name": "AI-Powered Accessibility Intelligence Dashboard",
+    "Application Name": "DashDeck.io - AI-Powered Accessibility Intelligence",
     "Version": "2.5.0 Production Edition",
     "Cognitive NLP Engine": "spaCy 3.7 + TextBlob + Textstat + Scikit-Learn",
     "Simplifier Engine": "Generative AI & Multi-Persona NLP",

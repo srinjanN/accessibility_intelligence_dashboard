@@ -18,13 +18,13 @@ try:
         "server.port": 8501,
         "server.headless": True,
         "browser.gatherUsageStats": False,
-        "server.fileWatcherType": "none",
+        "server.fileWatcherType": "auto",
         "server.enableCORS": False,
         "server.enableXsrfProtection": False
     }
     
     logging.info(f"Invoking bootstrap.run with options: {flag_options}")
-    bootstrap.run("app.py", "", [], flag_options=flag_options)
+    bootstrap.run("app.py", False, [], flag_options=flag_options)
 except SystemExit as e:
     logging.info(f"SystemExit caught with code: {e.code}")
     sys.exit(e.code)

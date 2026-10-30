@@ -4,7 +4,7 @@ Page 4: AI Simplifier & Multi-Persona Rewriter Page
 
 import os
 import streamlit as st
-from utils.ui_components import inject_custom_css, render_header_banner, render_kpi_card
+from utils.ui_components import inject_custom_css, render_header_banner, render_kpi_card, ensure_active_analysis
 from utils.ai_service import simplify_text_gemini
 from utils.nlp_engine import compute_readability_metrics
 
@@ -15,7 +15,7 @@ render_header_banner(
     subtitle="Transform complex copy into accessible, plain-English, dyslexia-friendly, ADHD-friendly, elderly-friendly, or child-friendly versions."
 )
 
-input_text = st.session_state.get("input_text", "")
+current_res, input_text = ensure_active_analysis()
 if not input_text:
     st.info("💡 No input copy provided yet. Please enter or upload text on the **Dashboard** page first!")
     if st.button("👉 Go to Dashboard"):

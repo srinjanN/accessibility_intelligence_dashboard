@@ -216,31 +216,59 @@ def analyze_accessibility(text: str, custom_thresholds: Dict[str, Any] = None) -
     )))
     
     # Accessibility Score Calculation (0-100 scale, 100=Perfect Accessibility)
-    # Deduct points based on violation severities and readability
-    penalty = 0.0
+    # Balanced multidimensional evaluation:
+    # 1. Reading Ease Factor (30% weight) - Flesch Reading Ease normalized
+    fre_normalized = max(0.0, min(100.0, metrics["flesch_reading_ease"]))
+    
+    # 2. Structural Clarity Factor (35% weight) - Sentence length, grade level, passive voice, jargon
+    avg_wps = metrics["avg_words_per_sentence"]
+    grade = max(0.0, metrics["flesch_kincaid_grade"])
+    
+    # Target: 15-18 words per sentence; deduct above 18
+    wps_deduction = max(0.0, avg_wps - 18.0) * 1.5
+    # Target: Grade 8 (Plain Language standard); deduct above Grade 8
+    grade_deduction = max(0.0, grade - 8.0) * 2.2
+    # Target: <= 15% passive voice
+    passive_deduction = max(0.0, passive_pct - 15.0) * 0.4
+    # Jargon vocabulary deduction
+    jargon_deduction = min(20.0, difficult_words_pct * 2.5)
+    
+    structural_clarity_score = max(10.0, min(100.0, 100.0 - (wps_deduction + grade_deduction + passive_deduction + jargon_deduction)))
+    
+    # 3. Violation Density Compliance (35% weight)
+    # Weighted severity points normalized per 100 words so large documents are not penalized unfairly
+    weighted_violation_points = 0.0
     for iss in unique_issues:
         sev = iss["severity"].lower()
         if sev == "critical":
-            penalty += 18.0
+            weighted_violation_points += 4.0
         elif sev == "high":
-            penalty += 10.0
+            weighted_violation_points += 2.5
         elif sev == "medium":
-            penalty += 5.0
+            weighted_violation_points += 1.2
         else:
-            penalty += 2.0
+            weighted_violation_points += 0.5
             
-    raw_accessibility_score = 100.0 - penalty
-    # Adjust by Flesch Reading Ease
-    fre_normalized = max(0.0, min(100.0, metrics["flesch_reading_ease"]))
-    final_accessibility_score = round(max(0.0, min(100.0, (raw_accessibility_score * 0.65) + (fre_normalized * 0.35))), 1)
+    hundred_word_units = max(total_words / 100.0, 1.0)
+    violation_density = weighted_violation_points / hundred_word_units
+    violation_compliance_score = max(10.0, min(100.0, 100.0 - (violation_density * 8.0)))
+    
+    # Composite Final Score (0-100 scale)
+    final_accessibility_score = round(
+        (fre_normalized * 0.30) +
+        (structural_clarity_score * 0.35) +
+        (violation_compliance_score * 0.35),
+        1
+    )
+    final_accessibility_score = max(5.0, min(100.0, final_accessibility_score))
 
     # Feature Importance Breakdown for Explainable AI (XAI)
     feature_importance = {
-        "Sentence Length Impact": round(min(30.0, metrics["avg_words_per_sentence"] * 1.2), 1),
-        "Reading Grade Impact": round(min(30.0, metrics["flesch_kincaid_grade"] * 2.0), 1),
-        "Jargon/Vocabulary Penalty": round(min(25.0, difficult_words_pct * 5.0), 1),
-        "Passive Voice Penalty": round(min(15.0, passive_pct * 0.5), 1),
-        "Accessibility Violations Penalty": round(min(35.0, penalty), 1)
+        "Sentence Length Impact": round(min(35.0, max(0.0, (avg_wps - 15.0) * 1.8)), 1),
+        "Reading Grade Impact": round(min(35.0, max(0.0, (grade - 8.0) * 2.5)), 1),
+        "Jargon/Vocabulary Penalty": round(min(25.0, difficult_words_pct * 3.0), 1),
+        "Passive Voice Penalty": round(min(20.0, max(0.0, (passive_pct - 15.0) * 0.5)), 1),
+        "Violation Density Penalty": round(min(40.0, violation_density * 5.0), 1)
     }
 
     # Human-Readable XAI Explanation
